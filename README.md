@@ -55,7 +55,7 @@ Implement the ```ResponseHandler``` in your class or fragment. Then call RestApi
 ```java
 new SmartRestCaller(context, this, AppApplication.smartCaller.getRepos("trending", "stars"), TRENDING_REQUEST_CODE);
 ```
-_Note: No need to worry about internet connectivity check. It will take care of it automatically. :)
+Note: No need to worry about internet connectivity check. It will take care of it automatically. :)
 No matter how many api's you want to call on fragment or activity, it will take just one line code to call.
 
 ## Response Handling
