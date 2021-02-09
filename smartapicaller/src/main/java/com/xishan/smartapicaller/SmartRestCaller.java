@@ -15,7 +15,6 @@ import retrofit2.Response;
 
 public class SmartRestCaller {
 
-
     ResponseHandler handler;
     private int REQ_CODE = 0;
     Context context;

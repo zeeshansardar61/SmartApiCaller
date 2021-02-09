@@ -13,4 +13,8 @@ public class AppApplication extends Application {
         SmartApiCaller.BASE_URL = "https://api.github.com/";
         smartCaller = SmartApiCaller.getRestClient(ApiInterface.class);
     }
+
+    public void setHeader(String key, String token){
+        RetroClient.setHeader(key, token);
+    }
 }

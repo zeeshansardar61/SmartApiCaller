@@ -1,8 +1,12 @@
 package com.xishan.smartapicaller;
 
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -12,11 +16,11 @@ public class RetroClient {
     private Retrofit retrofit = null;
     private static RetroClient object;
     private Object service;
-
+    public static OkHttpClient.Builder httpClient;
 
     private <T> RetroClient(Class<T> restService) {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+        httpClient = new OkHttpClient.Builder();
         httpClient.readTimeout(60, TimeUnit.SECONDS);
         httpClient.connectTimeout(60, TimeUnit.SECONDS);
 
@@ -41,6 +45,18 @@ public class RetroClient {
         return object;
     }
 
+    public static void setHeader(final String key, final String token){
+        final Interceptor addHeaderInterceptor = new Interceptor() {
+            @Override
+            public Response intercept(Chain chain) throws IOException {
+                Request newRequest = chain.request().newBuilder()
+                        .addHeader(key, token)
+                        .build();
+                return chain.proceed(newRequest);
+            }
+        };
+        httpClient.addInterceptor(addHeaderInterceptor);
+    }
 
 
     <T> T getApiServices() {
